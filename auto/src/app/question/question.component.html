@@ -1,0 +1,10 @@
+<button [routerLink]="'new'" type="button" class="btn btn-primary">Add question</button>
+<button [routerLink]="'..'" type="button" class="btn btn-primary">Back</button>
+
+<div *ngFor="let question of questions">
+  <span>{{question.text}}</span>
+  <button [routerLink]="[question.id, 'edit']" type="button" class="btn btn-primary">Edit question</button>
+  <button [routerLink]="[question.id, 'view']" type="button" class="btn btn-primary">View question</button>
+  <button type="button" (click)="deleteQuestion(question.id)" class="btn btn-danger">Delete</button>
+
+</div>
