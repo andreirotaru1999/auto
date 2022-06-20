@@ -6,16 +6,35 @@ import {
   Param,
   Delete,
   Put,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { Question } from './question.enity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { v4 as uuidv4 } from 'uuid';
 
 @Controller('question')
 export class QuestionController {
   constructor(private service: QuestionService) {}
 
   @Post('new')
-  async addAQuestion(@Body() question: Question) {
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './files',
+        filename: (req, file, callback) => {
+          const extension = file.mimetype.split('/')[1];
+          callback(null, `${uuidv4()}.${extension}`);
+        },
+      }),
+    }),
+  )
+  async addAQuestion(@Body() question: Question, @UploadedFile() file) {
+    if (file) {
+      question.image = file.filename;
+    }
     return await this.service.create(question);
   }
 
@@ -30,8 +49,26 @@ export class QuestionController {
   }
 
   @Put('/:id/edit')
-  async editQuestion(@Body() question: Question) {
-    return await this.service.update(question);
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './files',
+        filename: (req, file, callback) => {
+          const extension = file.mimetype.split('/')[1];
+          callback(null, `${uuidv4()}.${extension}`);
+        },
+      }),
+    }),
+  )
+  async editQuestion(
+    @Body() question: Question,
+    @UploadedFile() file,
+    @Param('id') id,
+  ) {
+    if (file) {
+      question.image = file.filename;
+    }
+    return await this.service.update(question, id);
   }
 
   @Delete('/:id')
