@@ -12,9 +12,9 @@ import { Test } from './test/entities/test.entity';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: '127.0.0.1',
-      port: 3307,
+      port: 3306,
       username: 'root',
-      password: 'icedmg',
+      password: '29102010',
       database: 'auto',
       entities: [Question, Test],
       synchronize: true,

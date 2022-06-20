@@ -14,7 +14,7 @@ Intrebari ramase:{{remainingQuestions}} Corecte:{{numberOfCorrectAnswers}} Gresi
       <div class="card-body" *ngIf="test.question && finish === false">
         <p class="card-text"><div >
         {{currentPage+1}}. {{test.question[currentPage].text}}
-        <form (ngSubmit)="answerQuestion(form)" #form="ngForm" class="form-control">
+        <form (ngSubmit)="answerQuestion()" #form="ngForm" class="form-control">
           <div class="form-group row" >
             <label [style.background-color]="style[0]" for="answer1">
               <input  type="checkbox" id="answer1" name="answer1"  [(ngModel)]="currentAnswer.answer1" [disabled]="show" (click)="changeAnswer(1)" required>

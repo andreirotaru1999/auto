@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Test } from "./test.model";
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { Test } from "../../models/test.model";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class TestService {
   private apiUrl = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
 
-  public generateTest(number): Observable<Test[]> {
+  public generateTest(): Observable<Test[]> {
     return this.http.get<Test[]>(`${this.apiUrl}/test`);
   }
   public createTest(test:Test): Observable<Test> {

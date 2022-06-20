@@ -1,9 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {interval, Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {TestService} from "./test.service";
-import {Question} from "../question/question.model";
-import {NgForm} from "@angular/forms";
+import {TestService} from "../../../../core/services/data/test.service";
 
 @Component({
   selector: 'app-test',
@@ -55,8 +53,8 @@ export class TestComponent implements  OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = interval(1000)
-      .subscribe(x => { this.getTimeDifference(); });
-    this.testService.generateTest(10).subscribe(
+      .subscribe(() => { this.getTimeDifference(); });
+    this.testService.generateTest().subscribe(
       (rez) => {
         this.test = rez
         this.remainingQuestions = this.test.question.length
@@ -65,7 +63,7 @@ export class TestComponent implements  OnInit, OnDestroy {
     );
   }
 
-  answerQuestion(form: NgForm) {
+  answerQuestion() {
     this.selectedAnswers[this.currentPage] = "";
     if (this.currentAnswer.answer1) {
       this.selectedAnswers[this.currentPage] += '1'
@@ -155,29 +153,29 @@ export class TestComponent implements  OnInit, OnDestroy {
     this.style[2] = 'white';
     if(this.selectedAnswers[this.currentPage].includes('1')){
       this.currentAnswer.answer1 = true;
-      if (!this.test.question[this.currentPage].correctAnswer.toString().includes(1)) {
+      if (!this.test.question[this.currentPage].correctAnswer.toString().includes('1')) {
         this.style[0] = 'red';
       }
     }
     if(this.selectedAnswers[this.currentPage].includes('2')){
       this.currentAnswer.answer2 = true;
-      if (!this.test.question[this.currentPage].correctAnswer.toString().includes(2)) {
+      if (!this.test.question[this.currentPage].correctAnswer.toString().includes('2')) {
         this.style[1] = 'red';
       }
     }
     if(this.selectedAnswers[this.currentPage].includes('3')){
       this.currentAnswer.answer3 = true;
-      if (!this.test.question[this.currentPage].correctAnswer.toString().includes(3)) {
+      if (!this.test.question[this.currentPage].correctAnswer.toString().includes('3')) {
         this.style[2] = 'red';
       }
     }
-    if (this.test.question[this.currentPage].correctAnswer.toString().includes(1)) {
+    if (this.test.question[this.currentPage].correctAnswer.toString().includes('1')) {
       this.style[0] = 'green';
     }
-    if (this.test.question[this.currentPage].correctAnswer.toString().includes(2)) {
+    if (this.test.question[this.currentPage].correctAnswer.toString().includes('2')) {
       this.style[1] = 'green';
     }
-    if (this.test.question[this.currentPage].correctAnswer.toString().includes(3)) {
+    if (this.test.question[this.currentPage].correctAnswer.toString().includes('3')) {
       this.style[2] = 'green';
     }
   }

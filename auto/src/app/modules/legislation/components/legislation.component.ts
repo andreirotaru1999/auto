@@ -5,7 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-legislation',
   templateUrl: './legislation.component.html',
-  styleUrls: ['./legislation.component.css']
+  styleUrls: ['./legislation.component.scss']
 })
 export class LegislationComponent implements OnInit, AfterViewInit{
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {QuestionService} from "../question.service";
+import {QuestionService} from "../../../../core/services/data/question.service";
 import {ActivatedRoute} from "@angular/router";
 import {NgForm} from "@angular/forms";
-import {Question} from "../question.model";
+import {Question} from "../../../../core/models/question.model";
 
 @Component({
   selector: 'app-question-edit',
