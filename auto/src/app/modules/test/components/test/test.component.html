@@ -1,59 +1,88 @@
-<div class="row" *ngIf="!finish && !show">
-    <span id="minutes"> {{remainingMinutes}}:{{remainingSeconds}} </span>
-</div>
-<button [routerLink]="'..'" type="button" class="btn btn-primary">Back</button>
-Intrebari ramase:{{remainingQuestions}} Corecte:{{numberOfCorrectAnswers}} Gresite: {{numberOfWrongAnswers}}
+<div class="content">
+  <div fxLayout="row" fxLayoutAlign="space-between" class="info_header" *ngIf="!finish && !show">
+    <div fxLayout="column" class="info_header_item">
+      <div class="blue">{{test.question.length}}</div>
+      <div>Intrebari initiale</div>
+    </div>
 
+    <div class="horizontal_separator"></div>
 
+    <div fxLayout="column" class="info_header_item">
+      <div class="green">{{remainingQuestions}}</div>
+      <div>Intrebari ramase</div>
+    </div>
 
-<div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-8 ">
-    <div class="card" >
+    <div class="horizontal_separator"></div>
 
-      <div class="card-body" *ngIf="test.question && finish === false">
-        <div *ngIf="test.question[currentPage].image">
-          <img [src]="'http://localhost:3000/images/' + test.question[currentPage].image" alt="Place image title">
-        </div>
-        <p class="card-text"><div >
-        {{currentPage+1}}. {{test.question[currentPage].text}}
-        <form (ngSubmit)="answerQuestion()" #form="ngForm" class="form-control">
-          <div class="form-group row" >
-            <label [style.background-color]="style[0]" for="answer1">
-              <input  type="checkbox" id="answer1" name="answer1"  [(ngModel)]="currentAnswer.answer1" [disabled]="show" (click)="changeAnswer(1)" required>
-              {{test.question[currentPage].answer1}}
+    <div fxLayout="column" class="info_header_item">
+      <div class="time">{{remainingMinutes}}:{{remainingSeconds}}</div>
+    </div>
 
-            </label>
-            <label [style.background-color]="style[1]" for="answer2" >
-              <input  type="checkbox" id="answer2"  name="answer2" [(ngModel)]="currentAnswer.answer2" [disabled]="show" (click)="changeAnswer(2)" required >
-              {{test.question[currentPage].answer2}}
-            </label>
-            <label  [style.background-color]="style[2]" for="answer3" >
-              <input  type="checkbox" id="answer3"  name="answer3" [(ngModel)]="currentAnswer.answer3" [disabled]="show" (click)="changeAnswer(3)" required >
-              {{test.question[currentPage].answer3}}
-            </label>
-          </div>
-          <button *ngIf="!show" class="btn btn-primary" type="submit" [disabled]="remainingQuestions === 0">Trimite răspunsul</button>
-        </form>
-        <button class="btn btn-primary" *ngIf="!show" [disabled]="remainingQuestions === 0" (click)="delayQuestion()">Sari peste</button>
-        <button class="btn btn-primary" *ngIf="show && currentPage != 0"  (click)="showPrevious()">Precedenta</button>
-        <button class="btn btn-primary" *ngIf="show && currentPage != test.question.length-1" (click)="showNext()">Urmatoarea</button>
-      </div>
-        raspunsuri:{{selectedAnswers | json}}
-        correct:{{test.question[currentPage].correctAnswer}}
-      </div>
+    <div class="horizontal_separator"></div>
+
+    <div fxLayout="column" class="info_header_item">
+      <div class="green">{{numberOfCorrectAnswers}}</div>
+      <div>Raspunsuri corecte</div>
+    </div>
+
+    <div class="horizontal_separator"></div>
+
+    <div fxLayout="column" class="info_header_item">
+      <div class="red">{{numberOfWrongAnswers}}</div>
+      <div>Raspunsuri gresite</div>
     </div>
   </div>
-  <div *ngIf="finish">
-    <h3>Qestionar incheiat</h3>
-    <div *ngIf="numberOfCorrectAnswers < 22">Ati trecut</div>
-    <div *ngIf="numberOfWrongAnswers === 5">Ati fost respins</div>
-    <button class="btn btn-primary" (click)="showAnswers()">vezi raspunsurile la intrebari</button>
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 ">
+      <div class="card" >
+
+        <div class="card-body" *ngIf="test.question && finish === false">
+          <div *ngIf="test.question[currentPage].image">
+            <img [src]="'http://localhost:3000/images/' + test.question[currentPage].image" alt="Place image title">
+          </div>
+          <p class="card-text"><div >
+          {{currentPage+1}}. {{test.question[currentPage].text}}
+          <form (ngSubmit)="answerQuestion()" #form="ngForm" class="form-control">
+            <div class="form-group row" >
+              <label [style.background-color]="style[0]" for="answer1">
+                <input  type="checkbox" id="answer1" name="answer1"  [(ngModel)]="currentAnswer.answer1" [disabled]="show" (click)="changeAnswer(1)" required>
+                {{test.question[currentPage].answer1}}
+
+              </label>
+              <label [style.background-color]="style[1]" for="answer2" >
+                <input  type="checkbox" id="answer2"  name="answer2" [(ngModel)]="currentAnswer.answer2" [disabled]="show" (click)="changeAnswer(2)" required >
+                {{test.question[currentPage].answer2}}
+              </label>
+              <label  [style.background-color]="style[2]" for="answer3" >
+                <input  type="checkbox" id="answer3"  name="answer3" [(ngModel)]="currentAnswer.answer3" [disabled]="show" (click)="changeAnswer(3)" required >
+                {{test.question[currentPage].answer3}}
+              </label>
+            </div>
+            <button *ngIf="!show" class="btn btn-primary" type="submit" [disabled]="remainingQuestions === 0">Trimite răspunsul</button>
+          </form>
+          <button class="btn btn-primary" *ngIf="!show" [disabled]="remainingQuestions === 0" (click)="delayQuestion()">Sari peste</button>
+          <button class="btn btn-primary" *ngIf="show && currentPage != 0"  (click)="showPrevious()">Precedenta</button>
+          <button class="btn btn-primary" *ngIf="show && currentPage != test.question.length-1" (click)="showNext()">Urmatoarea</button>
+        </div>
+          raspunsuri:{{selectedAnswers | json}}
+          correct:{{test.question[currentPage].correctAnswer}}
+        </div>
+      </div>
+    </div>
+    <div *ngIf="finish">
+      <h3>Qestionar incheiat</h3>
+      <div *ngIf="numberOfCorrectAnswers < 22">Ati trecut</div>
+      <div *ngIf="numberOfWrongAnswers === 5">Ati fost respins</div>
+      <button class="btn btn-primary" (click)="showAnswers()">vezi raspunsurile la intrebari</button>
+    </div>
+    <div *ngIf="show">
+      <a [routerLink]="['../legislation', {pageSec: test.question[currentPage].link}]" href="" target="_blank" type="button"  class="btn btn-primary">Referinta legislatie</a>
+    </div>
+    <div class="col-md-2"></div>
+    <div>
+      <button [routerLink]="'..'" type="button" class="btn btn-primary">Back</button>
+    </div>
   </div>
-  <div *ngIf="show">
-    <a [routerLink]="['../legislation', {pageSec: test.question[currentPage].link}]" href="" target="_blank" type="button"  class="btn btn-primary">Referinta legislatie</a>
-  </div>
-  <div class="col-md-2"></div>
 </div>
-
-
