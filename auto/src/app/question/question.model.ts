@@ -7,5 +7,6 @@ export interface Question {
   link?: string;
   explanations?: string;
   correctAnswer?: number;
+  image?: File;
 
 }

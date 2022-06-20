@@ -21,10 +21,13 @@
 
       <label  for="explanations" >Explicatii suplimentare</label>
       <input  type="text" id="explanations" class="form-control" [(ngModel)]="question.explanations"  name="explanations"  #titleField5="ngModel">
+
+      <label  for="image" >imagine</label>
+      <input  type="file" id="image" class="form-control"  name="image"  (change)="onFileChange($event)">
     </div>
     <div class="form-group row">
       <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
-      <button [routerLink]="question?['../../']:['../']" type="button" class="btn btn-primary">back</button>
+      <button [routerLink]="question!= {} ?['../../']:['../']" type="button" class="btn btn-primary">back</button>
     </div>
   </form>
 </div>
