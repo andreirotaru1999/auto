@@ -30,8 +30,8 @@ export class TestComponent implements  OnInit, OnDestroy {
   public show = false;
   public finish = false;
   public timeDifference;
-  public secondsToDday;
-  public minutesToDday;
+  public remainingSeconds;
+  public remainingMinutes;
   public delayedQuestions = [];
   public style = ['white','white', 'white'];
 
@@ -44,10 +44,11 @@ export class TestComponent implements  OnInit, OnDestroy {
   }
 
   private allocateTimeUnits (timeDifference) {
-    this.secondsToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond) % this.SecondsInAMinute);
-    this.minutesToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
-    if(this.secondsToDday === 0 && this.minutesToDday === 0) {
+    this.remainingSeconds = Math.floor((timeDifference) / (this.milliSecondsInASecond) % this.SecondsInAMinute);
+    this.remainingMinutes = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
+    if(this.remainingSeconds === 0 && this.remainingMinutes === 0) {
       this.finish = true;
+      this.subscription.unsubscribe();
     }
   }
 
@@ -117,7 +118,7 @@ export class TestComponent implements  OnInit, OnDestroy {
   }
 
   addHours( date = new Date()) {
-    date.setTime(date.getTime() +  30 * 60 * 1000);
+    date.setTime(date.getTime() + 30 * 60 * 1000);
     return date;
   }
   delayQuestion(){

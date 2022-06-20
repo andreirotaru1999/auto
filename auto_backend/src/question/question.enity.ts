@@ -26,7 +26,7 @@ export class Question {
   explanations: string;
   @Column({ name: 'link', nullable: true })
   link: string;
-  @Column({ name: 'image', nullable: true , type: "blob"})
+  @Column({ name: 'image', nullable: true })
   image: string;
 
   @ManyToOne(() => Test, (test: Test) => test.question, {

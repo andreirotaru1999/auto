@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { Question } from './question.enity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult } from 'typeorm/query-builder/result/DeleteResult';
@@ -30,10 +30,12 @@ export class QuestionService {
     return found;
   }
 
-  async update(question: Question): Promise<Question> {
+  async update(question, id): Promise<Question> {
+    console.log(question);
+    console.log(typeof id);
     const found: Question = await this.repository.findOne({
       where: {
-        id: question.id,
+        id: id,
       },
     });
     if (!found) {
@@ -41,6 +43,9 @@ export class QuestionService {
         'No question found to update',
         HttpStatus.NOT_FOUND,
       );
+    }
+    if (found) {
+      question.id = parseInt(id);
     }
     return await this.repository.save(question);
   }

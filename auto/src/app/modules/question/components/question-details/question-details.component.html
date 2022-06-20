@@ -1,6 +1,9 @@
 <button [routerLink]="'../../'" type="button"  class="btn btn-primary">Back</button>
 <div *ngIf="question" class="container">
   <div class="d-flex align-items-center justify-content-center">
+    <img [src]="'http://localhost:3000/images/' + question.image" alt="Place image title">
+  </div>
+  <div class="d-flex align-items-center justify-content-center">
     {{question.text}}
   </div>
   <div class="d-flex align-items-center justify-content-center">

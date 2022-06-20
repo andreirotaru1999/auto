@@ -1,5 +1,5 @@
-<div class="row">
-    <span id="minutes"> {{minutesToDday}}:{{secondsToDday}} </span>
+<div class="row" *ngIf="!finish && !show">
+    <span id="minutes"> {{remainingMinutes}}:{{remainingSeconds}} </span>
 </div>
 <button [routerLink]="'..'" type="button" class="btn btn-primary">Back</button>
 Intrebari ramase:{{remainingQuestions}} Corecte:{{numberOfCorrectAnswers}} Gresite: {{numberOfWrongAnswers}}
@@ -12,6 +12,9 @@ Intrebari ramase:{{remainingQuestions}} Corecte:{{numberOfCorrectAnswers}} Gresi
     <div class="card" >
 
       <div class="card-body" *ngIf="test.question && finish === false">
+        <div *ngIf="test.question[currentPage].image">
+          <img [src]="'http://localhost:3000/images/' + test.question[currentPage].image" alt="Place image title">
+        </div>
         <p class="card-text"><div >
         {{currentPage+1}}. {{test.question[currentPage].text}}
         <form (ngSubmit)="answerQuestion()" #form="ngForm" class="form-control">

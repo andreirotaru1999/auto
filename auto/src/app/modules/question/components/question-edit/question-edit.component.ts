@@ -11,6 +11,7 @@ import {Question} from "../../../../core/models/question.model";
 })
 export class QuestionEditComponent implements OnInit {
   question: Question = {};
+  file: File;
 
   constructor(private questionService:QuestionService,
               protected  activatedRoute: ActivatedRoute) { }
@@ -18,11 +19,10 @@ export class QuestionEditComponent implements OnInit {
   createQuestion(form: NgForm){
     let id: number = this.activatedRoute.snapshot.params['id'];
     if(id){
-      form.value.id = Number(id);
-      this.questionService.edit(id, form.value).subscribe();
+      this.questionService.edit(id, this.toFormData(form.value)).subscribe();
     }
     else{
-      this.questionService.createQuestion(form.value).subscribe();
+      this.questionService.createQuestion(this.toFormData(form.value)).subscribe();
     }
 
   }
@@ -36,6 +36,34 @@ export class QuestionEditComponent implements OnInit {
     }
   }
 
+  onFileChange(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        // this.productForm.patchValue({
+        //   picture: file
+        // });
+        this.file = file;
+      };
+    }
+  }
+  public toFormData<T>( formValue: T ) {
+    const formData = new FormData();
 
+    for ( const key of Object.keys(formValue) ) {
+      const value = formValue[key];
+      formData.append(key, value);
+    }
+
+    if (this.file) {
+      formData.append('image', this.file);
+    } else {
+      formData.delete('image');
+    }
+
+    return formData;
+  }
 
 }

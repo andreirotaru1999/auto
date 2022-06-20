@@ -13,13 +13,13 @@ export class QuestionService {
   public getQuestions(): Observable<Question[]> {
     return this.http.get<Question[]>(`${this.apiUrl}/question`);
   }
-  public createQuestion(question:Question): Observable<Question> {
+  public createQuestion(question): Observable<Question> {
     return this.http.post<Question>(`${this.apiUrl}/question/new`, question);
   }
   public find(id: string): Observable<Question> {
     return this.http.get<Question>(`${this.apiUrl}/question/${id}`);
   }
-  public edit(id: number, question:Question): Observable<Question> {
+  public edit(id: number, question): Observable<Question> {
     return this.http.put<Question>(`${this.apiUrl}/question/${id}/edit`, question);
   }
   public delete(id:string):Observable<Question> {
