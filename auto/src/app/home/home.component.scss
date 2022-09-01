@@ -1,0 +1,129 @@
+.app__container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.on-top .header{
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+.header {
+  background-color: white;
+}
+
+.sidenav__container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.on-top .sidenav__container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+.example-footer {
+  bottom: 0;
+}
+
+.expanded {
+  width: 15rem;
+}
+
+.menu__button {
+  color: #8f9bb3;
+}
+
+.app__name {
+  margin-left: 0.5rem;
+  border-left: 1px solid #edf1f7;
+  padding-left: 1rem;
+  color: #222b45;
+}
+
+.app__spacer{
+  flex: 1 1 auto;
+}
+
+.app__account {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 100%;
+  flex-shrink: 0;
+  height: calc(2.5rem + 2px)!important;
+  width: calc(2.5rem + 2px)!important;
+  cursor: pointer;
+}
+
+.app__icon {
+  margin-left: 0.5rem;
+  border-left: 1px solid #edf1f7;
+  padding-left: 1rem;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.app__account__name {
+  margin-left: 0.5rem;
+  border-left: 1px solid #edf1f7;
+  padding-left: 1rem;
+  color: #222b45;
+  font-size: 14px;
+}
+
+.app__account {
+  margin-left: 10px;
+}
+
+.icon__item{
+  color: #8f9bb3;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.component__container {
+  padding: 1rem;
+  background-color: #edf1f7;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.mat-sidenav-content {
+  overflow-x: hidden;
+}
+
+.mat-sidenav {
+  border-right: none;
+}
+
+.breadcrumbs__container {
+  padding: 1rem;
+  font-size: 1rem;
+  background: #fff;
+
+  .breadcrumb__title {
+    text-decoration: none;
+    font-weight: 500;
+    color: #222b45;
+    cursor: pointer;
+  }
+
+  .breadcrumb__separator{
+    font-size: 14px;
+    margin: 0;
+    color: #8f9bb3;
+    padding: 0 0.7rem;
+  }
+}
+
+.link {
+  cursor: pointer;
+}

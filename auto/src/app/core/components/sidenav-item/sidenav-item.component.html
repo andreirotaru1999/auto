@@ -1,0 +1,19 @@
+<a mat-list-item
+   *ngIf="visibleToUser"
+   [routerLink]="item.type === 'link' ? [item.route] : []"
+   [ngClass]="{'active': item.route ? router.isActive(item.route, false) : false, 'expanded': item.expanded}"
+   (click)="item.type === 'parent' ? toggleParent(item) : closeSidenav()">
+  <div fxLayout="row">
+    <fa-icon *ngIf="item.icon" class="item__icon" [icon]="getIcon(item)"></fa-icon>
+    <div class="item__title" [ngStyle]="{'padding-left': depth + 'rem'}">{{item.title}}</div>
+  </div>
+  <span fxFlex *ngIf="item.children && item.children.length" class="item__arrow">
+    <mat-icon [@indicatorRotate]="item.expanded ? 'expanded': 'collapsed'">
+      expand_more
+    </mat-icon>
+  </span>
+</a>
+<div *ngIf="item.expanded">
+  <app-sidenav-item *ngFor="let child of item.children" [item]="child" [depth]="depth+1" [sidenav]="sidenav">
+  </app-sidenav-item>
+</div>

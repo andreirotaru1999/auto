@@ -1,0 +1,20 @@
+.item__title {
+  padding: 1rem;
+  color: #222b45;
+}
+
+.item__arrow {
+  margin-left: auto;
+}
+
+.item__icon {
+  color: #8f9bb3;
+  padding: 1rem 0;
+}
+
+.active {
+  .item__title,
+  .item__icon {
+    color: #36f;
+  }
+}

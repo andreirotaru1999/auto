@@ -1,0 +1,53 @@
+<!--<button [routerLink]="'question'" type="button"  class="btn btn-primary">Intrebari</button>-->
+<!--<button [routerLink]="'test'" type="button"  class="btn btn-primary">Chestionar</button>-->
+<!--<button [routerLink]="'legislation'" type="button"  class="btn btn-primary">Legislatie</button>-->
+<div class="app__container" [class.on-top]="isMobile">
+  <mat-toolbar class="header" fxLayout="row" fxLayoutAlign="space-between">
+    <div fxLayoutAlign="flex-start center">
+      <button mat-icon-button class="menu__button" (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+      <h1 class="app__name">Chestionare auto</h1>
+    </div>
+    <div fxLayoutAlign="flex-start center">
+      <fa-icon class="icon__item link"
+               [icon]="['fas', 'cog']"
+               [matMenuTriggerFor]="profileMenu"
+      ></fa-icon>
+      <mat-menu #profileMenu="matMenu">
+        <div *ngIf="authentificated">
+          <button mat-menu-item routerLink="#" (click)="logout()">
+            <fa-icon class="icon__item" [icon]="['fas', 'sign-out-alt']"></fa-icon>
+            Logout
+          </button>
+        </div>
+        <div *ngIf="!authentificated">
+          <button mat-menu-item routerLink="/login">
+            <fa-icon class="icon__item" [icon]="['fas', 'sign-in-alt']"></fa-icon>
+            Autentificare
+          </button>
+          <button mat-menu-item routerLink="/register" >
+            <fa-icon class="icon__item" [icon]="['fas', 'user']"></fa-icon>
+            Înregistrare
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container #snavc class="sidenav__container"
+                         [style.marginTop.px]="isMobile ? 56 : 0">
+    <mat-sidenav #snav mode="over">
+      <mat-nav-list>
+        <app-sidenav-item *ngFor="let item of navbarItems" [item]="item" [depth]="1" [sidenav]="snavc"></app-sidenav-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="component__container">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</div>
+

@@ -1,0 +1,91 @@
+<div class="content">
+  <div fxLayout="row" fxLayoutAlign="space-between" class="info_header" *ngIf="!finish && !view">
+    <div fxLayout="column" class="info_header_item">
+      <div class="blue">{{test?.question?.length}}</div>
+      <div>Întrebari inițiale</div>
+    </div>
+
+    <div class="horizontal_separator"></div>
+
+    <div fxLayout="column" class="info_header_item">
+      <div class="green">{{remainingQuestions}}</div>
+      <div>Întrebari rămase</div>
+    </div>
+
+    <div class="horizontal_separator"></div>
+
+    <div fxLayout="column" class="info_header_item">
+      <div class="time">{{remainingMinutes}}:{{remainingSeconds}}</div>
+    </div>
+
+    <div class="horizontal_separator"></div>
+
+    <div fxLayout="column" class="info_header_item">
+      <div class="green">{{numberOfCorrectAnswers}}</div>
+      <div>Răspunsuri corecte</div>
+    </div>
+
+    <div class="horizontal_separator"></div>
+
+    <div fxLayout="column" class="info_header_item">
+      <div class="red">{{numberOfWrongAnswers}}</div>
+      <div>Răspunsuri greșite</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 ">
+      <div class="card" >
+
+        <div class="card-body" *ngIf="test?.questions && finish === false">
+          <div style="text-align:center;" *ngIf="test.questions[currentPage].image">
+            <img [src]="'http://localhost:3000/images/' + test.questions[currentPage].image" alt="Place image title">
+          </div>
+          <p class="card-text"><div >
+          {{currentPage+1}}. {{test.questions[currentPage].text}}
+          <form (ngSubmit)="answerQuestion()" #form="ngForm" class="form-control">
+            <div class="form-group row" >
+              <label [style.background-color]="style[0]" for="answer1">
+                <input type="checkbox" id="answer1" name="answer1" [(ngModel)]="currentAnswer[0]" [disabled]="view" (click)="changeAnswer(0)" required>
+                {{test.questions[currentPage].answer1}}
+              </label>
+              <label [style.background-color]="style[1]" for="answer2" >
+                <input type="checkbox" id="answer2" name="answer2" [(ngModel)]="currentAnswer[1]" [disabled]="view" (click)="changeAnswer(1)" required >
+                {{test.questions[currentPage].answer2}}
+              </label>
+              <label  [style.background-color]="style[2]" for="answer3" >
+                <input type="checkbox" id="answer3" name="answer3" [(ngModel)]="currentAnswer[2]" [disabled]="view" (click)="changeAnswer(2)" required >
+                {{test.questions[currentPage].answer3}}
+              </label>
+            </div>
+            <button *ngIf="!view"  mat-stroked-button  color="primary" type="submit"  [disabled]="remainingQuestions === 0 || (currentAnswer[0] === false && currentAnswer[1]  === false && currentAnswer[2]  === false)">Trimite răspunsul</button>
+            <button mat-stroked-button  color="primary" type="button" *ngIf="!view" [disabled]="remainingQuestions === 0" (click)="delayQuestion()">Amână răspunsul</button>
+          </form>
+          <div>
+            <div class="float-start">
+              <button mat-stroked-button  color="primary" *ngIf="view" [disabled]="currentPage === 0" (click)="showPrevious()">Precedenta</button>
+            </div>
+            <div class="float-end">
+              <button mat-stroked-button  color="primary"*ngIf="view" [disabled]="currentPage === test.questions.length-1" (click)="showNext()">Următoarea</button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="finish">
+      <h3 class ="d-flex justify-content-center">Chestionar încheiat</h3>
+      <div class ="d-flex justify-content-center" *ngIf="numberOfCorrectAnswers >= 22"><h4 class="text-success">Ați trecut</h4></div>
+      <div class ="d-flex justify-content-center " *ngIf="numberOfWrongAnswers >= 5"><h4 class="text-danger">Ați fost respins</h4></div>
+      <div class ="d-flex justify-content-center">
+        <button mat-raised-button color="primary" (click)="showAnswers()">Vizualizați răspunsurile la întrebări</button>
+        <button mat-raised-button color="primary" (click)="saveTest()">Salvează chestionarul</button>
+      </div>
+    </div>
+    <div *ngIf="view" style="text-align:center;">
+      <a [routerLink]="['../legislation', {pageSec: test.questions[currentPage].link}]" href="" target="_blank" type="button"  mat-raised-button  color="primary" class="legislațion__buttom">Referința legislativă</a>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

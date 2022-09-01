@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8 ">
+    <form (ngSubmit)="createQuestion(f)" #f="ngForm">
+      <div class="form-group row">
+        <label  for="question2" >Textul întrebării*</label>
+        <input  type="text" id="question2" class="form-control" [(ngModel)]="question.text" name="text" required  #titleField2="ngModel">
+
+        <label  for="answer1" >Varianta 1*</label>
+        <input  type="text" id="answer1" class="form-control" [(ngModel)]="question.answer1"  name="answer1" required #titleField3="ngModel">
+
+        <label  for="answer2" >Varianta 2*</label>
+        <input  type="text" id="answer2" class="form-control" [(ngModel)]="question.answer2"  name="answer2" required #titleField4="ngModel">
+
+        <label  for="answer3" >Varianta 3*</label>
+        <input  type="text" id="answer3" class="form-control" [(ngModel)]="question.answer3"  name="answer3" required #titleField5="ngModel">
+
+        <label  for="correctAnswer" >Răspunsul/Răspunsurile corecte*</label>
+        <input  type="number" id="correctAnswer" class="form-control" [(ngModel)]="question.correctAnswer"  name="correctAnswer" required #titleField="ngModel">
+
+        <label  for="link" >Referința legislativă</label>
+        <input  type="text" id="link" class="form-control" [(ngModel)]="question.link"  name="link"  #titleField6="ngModel">
+
+        <label  for="explanations" >Explicații suplimentare</label>
+        <input  type="text" id="explanations" class="form-control" [(ngModel)]="question.explanations"  name="explanations"  #titleField5="ngModel">
+
+        <label  for="image" >Imagine</label>
+        <input  type="file" id="image" class="form-control"  name="image"  (change)="onFileChange($event)">
+        <div>
+          <button [routerLink]="question!= {} ?['../../']:['../']" mat-raised-button  color="primary" class="float-start">Înapoi</button>
+          <button mat-raised-button color="primary" class="float-end" type="submit" [disabled]="!f.valid">Salvează întrebarea</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
